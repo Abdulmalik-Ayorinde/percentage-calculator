@@ -1,8 +1,8 @@
-const mainPercent = document.getElementById('mainpercent')
-const mtnPrice = document.getElementById('mtnprice')
-const gloPrice = document.getElementById('gloprice')
-const airtelPrice = document.getElementById('airtelprice')
-const nmobilePrice = document.getElementById('nmobileprice')
+const mainPercent = document.getElementById('mainpercent').value
+const mtnPrice = document.getElementById('mtnprice').value
+const gloPrice = document.getElementById('gloprice').value
+const airtelPrice = document.getElementById('airtelprice').value
+const nmobilePrice = document.getElementById('nmobileprice').value
 
 const costRow = document.getElementById('table')
 
@@ -33,107 +33,72 @@ let nmobile = [500, 1000, 1200, 2000, 5000, 10000, 15000, 27500]
 
 // Arrays of calculated percentage
 let mtnPercent = []
-let gloPercent = []
+let gloCost = []
 let airtelPercent = []
 let nmobilePercent = []
 
-costRow.innerHTML = ''
+// Array for Earnings
+let mtnEarn = []
+let gloEarn = []
+let airtelEarn = []
+let nmobileEarn = []
+
 // Event Listeners
 solution.addEventListener('click', () => {
-	calculateMtn()
-	calculateGlo()
-	calculateAirtel()
-	calculateNmobile()
-	// insertMtn()
-	// insertGlo()
-	// insertAirtel()
-	// insertNmobile()
+	calculateCard(glo, gloPrice, gloCost)
+	insertCard(gloCost)
 })
 
 addition.addEventListener('click', () => {
-	let percentResult = percentage(mainPercent.value, mainPrice.value)
-	console.log(Number(mainPrice.value) - Number(percentResult))
+	// let percentResult = percentage(mainPercent.value, mainPrice.value)
+	// console.log(Number(mainPrice.value) - Number(percentResult))
+
+	subtraction(glo, gloCost)
 })
+
+// const subtract = (arrMain, percentArr) => {
+// 	arrMain.forEach((card) => {
+// 		console.log('main ' + card)
+// 		percentArr.forEach((item) => {
+// 			const result = card - item
+// 			console.log('second ' + item)
+// 		})
+// 	})
+// }
+
+function arrMain() {
+	glo.forEach((card) => {
+		return card
+	})
+}
+
+function percentArr() {
+	gloCost.forEach((item) => {
+		return item
+	})
+}
+
+function subtraction(arrMain, percentArr) {
+	console.log(arrMain - percentArr)
+}
 
 // percentage calculation function
 function percentage(percent, total) {
 	return ((percent / 100) * total).toFixed(0)
 }
 
-// Calculating the percentage and pushing result to new array
-function calculateMtn() {
-	mtn.forEach((item) => {
-		let mtnPercentResult = percentage(mtnPrice.value, item)
-		console.log(mtnPercentResult)
-		mtnPercent.push(+mtnPercentResult)
+const calculateCard = (arr, price, newArr) => {
+	arr.forEach((item) => {
+		let percentResult = percentage(price, item)
+		newArr.push(+percentResult)
 	})
 }
-
-function calculateGlo() {
-	glo.forEach((item) => {
-		let gloPercentResult = percentage(gloPrice.value, item)
-		console.log(gloPercentResult)
-		gloPercent.push(+gloPercentResult)
-		insertGlo(glo)
-	})
-}
-
-function calculateAirtel() {
-	airtel.forEach((item) => {
-		let airtelPercentResult = percentage(airtelPrice.value, item)
-		console.log(airtelPercentResult)
-		airtelPercent.push(+airtelPercentResult)
-	})
-}
-
-function calculateNmobile() {
-	nmobile.forEach((item) => {
-		let nmobilePercentResult = percentage(nmobilePrice.value, item)
-		console.log(nmobilePercentResult)
-		nmobilePercent.push(+nmobilePercentResult)
-	})
-}
-
-console.log(mtnPercent)
 
 // function for putting calculated percentage in the DOM
-function insertMtn() {
-	mtnPercent.forEach((item) => {
+const insertCard = (arr) => {
+	arr.forEach((item) => {
 		const newTable = document.createElement('div')
 		newTable.innerHTML = `<td>${item}</td>`
 		costRow.appendChild(newTable)
-
-		console.log('insert' + item)
-	})
-}
-
-function insertGlo(value) {
-	value.forEach((item) => {
-		const gloTable = document.createElement('td')
-		gloTable.innerHTML = `<tr>${item}</tr>`
-		gloTable.classList.add('gloDiv')
-		costRow.appendChild(gloTable)
-
-		console.log('insert' + item)
-	})
-}
-
-function insertAirtel() {
-	airtelPercent.forEach((item) => {
-		const newTable = document.createElement('div')
-		newTable.innerHTML = `<td>${item}</td>`
-		costRow.appendChild(newTable)
-
-		console.log('insert' + item)
-	})
-}
-
-function insertNmobile() {
-	nmobilePercent.forEach((item) => {
-		const newTable = document.createElement('div')
-		newTable.innerHTML = `Nmobile <td>${item}</td>`
-		costRow.appendChild(newTable)
-
-		console.log('insert' + item)
 	})
 }
